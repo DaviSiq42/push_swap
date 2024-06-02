@@ -16,16 +16,15 @@ t_list	*set_stack(char **argv, t_list *stack_a)
 	t_list	*head;
 	int	i;
 
-	i = 1;
+	i = 2;
 	stack_a = NULL;
 	head = NULL;
-	stack_a = ft_lstnew(ft_atoi(argv[i]));
+	stack_a = ft_lstnew(ft_atoi(argv[i - 1]));
 	head = stack_a;
 	while (argv[i])
 	{
 		stack_a->next = ft_lstnew(ft_atoi(argv[i]));
 		stack_a = stack_a->next;
-		ft_printf("%d", stack_a->content);
 		i++;
 	}
 	return (head);
