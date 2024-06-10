@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 #include "push_swap.h"
 
-void	check_stack(t_list **stack_a, t_list **stack_b)
+void	check_stack(t_list **stack_a)
 {
 	int	l;
 
@@ -44,15 +44,15 @@ t_list	*set_stack(char **argv, t_list *stack_a)
 int	main(int argc, char **argv)
 {
 	t_list	*stack_a;
-	t_list	*stack_b;
+//	t_list	*stack_b;
 
 	stack_a = NULL;
-	stack_b = ft_lstnew(NULL);
+//	stack_b = ft_lstnew(NULL);
 	if (argc < 2)
 		ft_printf("Not enough arguments");
 	else
 		stack_a = set_stack(argv, stack_a);
-	check_stack(&stack_a, &stack_b);
+	check_stack(&stack_a);
 	return (0);
 }
 

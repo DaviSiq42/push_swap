@@ -32,7 +32,7 @@ void	ft_swapboth(t_list **stack_a, t_list **stack_b)
 	ft_printf("ss\n");
 }
 
-void	ft_rotate(t_list **stack_a, char c)
+/*void	ft_rotate(t_list **stack_a, char c)
 {
 	t_list	*head;
-	t_list	*tail;
+	t_list	*tail;*/

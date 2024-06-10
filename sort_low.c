@@ -18,9 +18,9 @@ void	sort_two(t_list **stack_a)
 		ft_swap(stack_a, 'a');
 }
 
-void	sort_three(t_list **stack_a)
+/*void	sort_three(t_list **stack_a)
 {
 	long	smaller;
 
 	smaller = find_min(*stack_a);
-}
+}*/
