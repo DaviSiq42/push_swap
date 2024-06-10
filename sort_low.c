@@ -14,6 +14,8 @@
 
 void	sort_two(t_list **stack_a)
 {
+	if (!stack_a)
+		free_list(stack_a);
 	if ((*stack_a)->content > (*stack_a)->next->content)
 		ft_swap(stack_a, 'a');
 }

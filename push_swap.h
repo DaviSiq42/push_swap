@@ -21,7 +21,7 @@ void	check_stack(t_list **stack_a);
 t_list	*set_stack(char **argv, t_list *stack_a);
 long	find_min(t_list *stack);
 void	sort_two(t_list **stack_a);
-void	sort_three(t_list **stack_a);
+//void	sort_three(t_list **stack_a);
 void	free_list(t_list **stack_a);
 /*typedef struct s_ps
 {

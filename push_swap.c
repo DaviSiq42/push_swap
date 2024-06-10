@@ -15,11 +15,13 @@ void	check_stack(t_list **stack_a)
 {
 	int	l;
 
+	if (!stack_a)
+		free_list(stack_a);
 	l = ft_lstsize(*stack_a);
 	if (l == 2)
 		sort_two(stack_a);
-	if (l == 3)
-		sort_three(stack_a);
+/*	if (l == 3)
+		sort_three(stack_a);*/
 }
 
 t_list	*set_stack(char **argv, t_list *stack_a)
@@ -53,6 +55,7 @@ int	main(int argc, char **argv)
 	else
 		stack_a = set_stack(argv, stack_a);
 	check_stack(&stack_a);
+	free_list(&stack_a);
 	return (0);
 }
 
