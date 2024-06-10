@@ -1,26 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_all.c                                         :+:      :+:    :+:   */
+/*   sort_low.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: davioliv <davioliv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/29 17:09:20 by davioliv          #+#    #+#             */
-/*   Updated: 2024/05/29 17:10:19 by davioliv         ###   ########.fr       */
+/*   Created: 2024/06/05 15:39:12 by davioliv          #+#    #+#             */
+/*   Updated: 2024/06/05 15:39:15 by davioliv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	free_list(t_list **stack)
+void	sort_two(t_list **stack_a)
 {
-	t_list	*head;
+	if ((*stack_a)->content > (*stack_a)->next->content)
+		ft_swap(stack_a, 'a');
+}
 
-	head = *stack;
-	while (*stack)
-	{
-		head = (*stack)->next;
-		free(*stack);
-		*stack = head;
-	}
+void	sort_three(t_list **stack_a)
+{
+	long	smaller;
+
+	smaller = find_min(*stack_a);
 }

@@ -1,26 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_all.c                                         :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: davioliv <davioliv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/29 17:09:20 by davioliv          #+#    #+#             */
-/*   Updated: 2024/05/29 17:10:19 by davioliv         ###   ########.fr       */
+/*   Created: 2024/06/05 16:08:54 by davioliv          #+#    #+#             */
+/*   Updated: 2024/06/05 16:08:55 by davioliv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	free_list(t_list **stack)
+long	find_min(t_list *stack)
 {
-	t_list	*head;
+	long	min;
 
-	head = *stack;
-	while (*stack)
+	min = stack->content;
+	while (stack != NULL)
 	{
-		head = (*stack)->next;
-		free(*stack);
-		*stack = head;
+		if (stack->content < min)
+			min = stack->content;
+		stack = stack->next;
 	}
+	return (min);
 }
