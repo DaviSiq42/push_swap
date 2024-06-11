@@ -45,7 +45,15 @@ void	ft_push(t_list **stack_a, t_list **stack_b, char c)
 	head_a = *stack_a;
 	head_b = *stack_b;
 	if (c == 'a' && head_b)
+	{
+		*stack_b = (*stack_b)->next;
 		ft_lstadd_front(stack_a, head_b);
+		ft_printf("pa\n");
+	}
 	else if (c == 'b' && head_a)
+	{
+		*stack_a = (*stack_a)->next;
 		ft_lstadd_front(stack_b, head_a);
+		ft_printf("pb\n");
+	}
 }

@@ -25,3 +25,18 @@ long	find_min(t_list *stack)
 	}
 	return (min);
 }
+
+int	find_min_index(t_list *stack)
+{
+	int	index;
+	long	min;
+
+	min = find_min(stack);
+	index = 0;
+	while (stack->content != min)
+	{
+		stack = stack->next;
+		index++;
+	}
+	return (index);
+}

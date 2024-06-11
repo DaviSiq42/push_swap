@@ -38,6 +38,7 @@ void	ft_rotate(t_list **stack_a, char c)
 	t_list	*tail;
 
 	head = *stack_a;
+	*stack_a = (*stack_a)->next;
 	tail = ft_lstlast(*stack_a);
 	tail->next = head;
 	head->next = NULL;
