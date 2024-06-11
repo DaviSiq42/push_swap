@@ -20,8 +20,8 @@ void	check_stack(t_list **stack_a)
 	l = ft_lstsize(*stack_a);
 	if (l == 2)
 		sort_two(stack_a);
-/*	if (l == 3)
-		sort_three(stack_a);*/
+	if (l == 3)
+		sort_three(stack_a);
 }
 
 t_list	*set_stack(char **argv, t_list *stack_a)
