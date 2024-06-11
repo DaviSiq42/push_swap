@@ -24,6 +24,8 @@ void	check_stack(t_list **stack_a, t_list **stack_b)
 		sort_three(stack_a);
 	if (l == 4)
 		sort_four(stack_a, stack_b);
+	if (l == 5)
+		sort_five(stack_a, stack_b);
 }
 
 t_list	*set_stack(char **argv, t_list *stack_a)
