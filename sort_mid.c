@@ -16,7 +16,7 @@ void	check_and_push4(t_list **stack_a, t_list **stack_b)
 {
 	int	i;
 
-	i = find_min_index(*stack_a);
+	i = find_index(*stack_a, find_min(*stack_a));
 	if (i == 0)
 		ft_push(stack_a, stack_b, 'b');
 	else if (i == 1)
@@ -50,7 +50,7 @@ void	check_and_push5(t_list **stack_a, t_list **stack_b)
 {
 	int	i;
 
-	i = find_min_index(*stack_a);
+	i = find_index(*stack_a, find_min(*stack_a));
 	if (i <= 2)
 		check_and_push4(stack_a, stack_b);
 	else if (i == 3)

@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 #include "push_swap.h"
 
-void	check_stack(t_list **stack_a, t_list **stack_b)
+void	sort_time(t_list **stack_a, t_list **stack_b)
 {
 	int	l;
 
@@ -54,11 +54,11 @@ int	main(int argc, char **argv)
 
 	stack_a = NULL;
 	stack_b = NULL;
-	if (argc < 2)
-		ft_printf("Not enough arguments");
+	if (argc < 2 || (argc = 2 && check_str(argv))
+		ft_printf("Error\n");
 	else
 		stack_a = set_stack(argv, stack_a);
-	check_stack(&stack_a, &stack_b);
+	sort_time(&stack_a, &stack_b);
 	free_list(&stack_a);
 	return (0);
 }

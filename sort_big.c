@@ -1,24 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   checks.c                                           :+:      :+:    :+:   */
+/*   sort_big.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: davioliv <davioliv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/03 19:37:32 by davioliv          #+#    #+#             */
-/*   Updated: 2024/06/03 19:37:34 by davioliv         ###   ########.fr       */
+/*   Created: 2024/06/14 15:11:13 by davioliv          #+#    #+#             */
+/*   Updated: 2024/06/14 15:11:15 by davioliv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	check_order(t_list *stack_a)
+void	sort_it_all(t_list **stack_a, t_list **stack_b)
 {
-	while (stack_a->next)
-	{
-		if (stack_a->content > stack_a->next->content)
-			return (EXIT_FAILURE);
-		stack_a = stack_a->next;
-	}
-	return (EXIT_SUCCESS);
-}
+	t_utils	values;
+
+	values.stack_size = ft_lstsize(*stack_a);
+	if (ft_lstsize(*stack_a) > 3 && !(check_order(*stack_a)))
+		ft_push(stack_a, stack_b, 'b');
+	if (ft_lstsize(*stack_a) > 3 && !(check_order(*stack_a)))
+		ft_push(stack_a, stack_b, 'b');
+	values.stack_size = ft_lstsize(*stack_a);

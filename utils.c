@@ -26,14 +26,12 @@ long	find_min(t_list *stack)
 	return (min);
 }
 
-int	find_min_index(t_list *stack)
+int	find_index(t_list *stack, long nbr)
 {
 	int	index;
-	long	min;
 
-	min = find_min(stack);
 	index = 0;
-	while (stack->content != min)
+	while (stack->content != nbr)
 	{
 		stack = stack->next;
 		index++;
