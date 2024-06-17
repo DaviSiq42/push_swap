@@ -58,6 +58,8 @@ int	main(int argc, char **argv)
 		ft_printf("Error\n");
 	else
 		stack_a = set_stack(argv, stack_a);
+	check_twins(stack_a);
+	check_order(stack_a);
 	sort_time(&stack_a, &stack_b);
 	free_list(&stack_a);
 	return (0);

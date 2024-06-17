@@ -14,6 +14,7 @@
 #define PUSH_SWAP_H
 
 #include "libft/libft.h"
+#include <stdbool.h>
 
 void	ft_swap(t_list **stack_a, char c);
 void	ft_swapboth(t_list **stack_a, t_list **stack_b);
@@ -25,6 +26,7 @@ void	ft_push(t_list **stack_a, t_list **stack_b, char c);
 void	sort_time(t_list **stack_a, t_list **stack_b);
 t_list	*set_stack(char **argv, t_list *stack_a);
 long	find_min(t_list *stack);
+long	find_max(t_list *stack);
 int	find_index(t_list *stack, long nbr);
 void	sort_two(t_list **stack_a);
 void	sort_three(t_list **stack_a);
@@ -40,6 +42,13 @@ int	check_order(t_list *stack_a);
 typedef struct s_utils
 {
 	int	stack_size;
+	int	cost;
 }		t_utils;
+
+typedef struct s_nbrs
+{
+	int	nbr;
+	int	rotations;
+}		t_nbrs;
 
 #endif

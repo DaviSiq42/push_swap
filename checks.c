@@ -22,3 +22,21 @@ int	check_order(t_list *stack_a)
 	}
 	return (EXIT_SUCCESS);
 }
+
+void	check_twins(t_list *stack_a)
+{
+	long	temp;
+
+	temp = stack_a->content;
+	stack_a = stack_a->next;
+	while (stack_a->next)
+	{
+		if (temp = stack_a->content)
+		{
+			ft_printf("Error\n");
+			free_list(&stack_a);
+		}
+		temp = stack_a->content;
+		stack_a = stack_a->next;
+	}
+}

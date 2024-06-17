@@ -26,6 +26,20 @@ long	find_min(t_list *stack)
 	return (min);
 }
 
+long	find_max(t_list *stack)
+{
+	long	max;
+
+	max = stack->content;
+	while (stack != NULL)
+	{
+		if (stack->content > max)
+			max = stack->content;
+		stack = stack->next;
+	}
+	return (max);
+}
+
 int	find_index(t_list *stack, long nbr)
 {
 	int	index;

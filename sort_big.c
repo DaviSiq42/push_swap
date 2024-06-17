@@ -12,13 +12,23 @@
 
 #include "push_swap.h"
 
+int	check_cost(t_list *stack_a, t_utils *values)
+{
+	t_nbrs	chosen_one;
+
+	while (stack_a->next)
+	{
+		
+
 void	sort_it_all(t_list **stack_a, t_list **stack_b)
 {
 	t_utils	values;
 
-	values.stack_size = ft_lstsize(*stack_a);
-	if (ft_lstsize(*stack_a) > 3 && !(check_order(*stack_a)))
+	if (ft_lstsize(*stack_a) && check_order(*stack_a))
 		ft_push(stack_a, stack_b, 'b');
-	if (ft_lstsize(*stack_a) > 3 && !(check_order(*stack_a)))
+	if (ft_lstsize(*stack_a) && check_order(*stack_a))
 		ft_push(stack_a, stack_b, 'b');
 	values.stack_size = ft_lstsize(*stack_a);
+	while (values.stack_size > 3)
+	{
+		
