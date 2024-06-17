@@ -42,13 +42,12 @@ int	check_order(t_list *stack_a);
 typedef struct s_utils
 {
 	int	stack_size;
-	int	cost;
 }		t_utils;
 
 typedef struct s_nbrs
 {
 	int	nbr;
-	int	rotations;
+	int	moves;
 }		t_nbrs;
 
 #endif

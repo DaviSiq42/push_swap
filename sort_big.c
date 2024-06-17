@@ -12,13 +12,22 @@
 
 #include "push_swap.h"
 
-int	check_cost(t_list *stack_a, t_utils *values)
+int	check_rotations(t_list *stack_a, t_list *stack_b, t_nbrs *candidate)
+{
+	if (stack_a->content < find_min(stack_b))
+		candidate->moves =+ 2;
+	else if (stack_a->content > find_max(stack_b))
+		candidate->moves++;
+	if (stack_a->content > find_min(stack_b) && stack_a->content < find_max(stack_b))
+		
+int	check_cost(t_list *stack_a, t_list *stack_b)
 {
 	t_nbrs	chosen_one;
 
 	while (stack_a->next)
 	{
-		
+		check_rotations(stack_a, stack_b, chosen_one);
+			
 
 void	sort_it_all(t_list **stack_a, t_list **stack_b)
 {
