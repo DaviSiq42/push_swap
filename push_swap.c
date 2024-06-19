@@ -28,6 +28,26 @@ void	sort_time(t_list **stack_a, t_list **stack_b)
 		sort_five(stack_a, stack_b);
 }
 
+int	check_arg(char **argv)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 0;
+	while (argv[i])
+	{
+		while (argv[i][j])
+		{
+			if (argv[i][j] < 0 || argv[i][j] > 9)
+				return (EXIT_FAILURE);
+			j++;
+		}
+		i++;
+	}
+	return (EXIT_SUCCESS);
+}
+
 t_list	*set_stack(char **argv, t_list *stack_a)
 {
 	t_list	*head;
@@ -54,7 +74,7 @@ int	main(int argc, char **argv)
 
 	stack_a = NULL;
 	stack_b = NULL;
-	if (argc < 2 || (argc = 2 && check_str(argv))
+	if (argc < 2 || check_arg(argv))
 		ft_printf("Error\n");
 	else
 		stack_a = set_stack(argv, stack_a);
