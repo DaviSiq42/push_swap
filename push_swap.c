@@ -26,6 +26,8 @@ void	sort_time(t_list **stack_a, t_list **stack_b)
 		sort_four(stack_a, stack_b);
 	if (l == 5)
 		sort_five(stack_a, stack_b);
+	if (l > 5)
+		sort_it_all(stack_a, stack_b);
 }
 
 int	check_arg(char **argv)
@@ -33,13 +35,15 @@ int	check_arg(char **argv)
 	int	i;
 	int	j;
 
-	i = 0;
+	i = 1;
 	j = 0;
 	while (argv[i])
 	{
+		if (argv[i][j] == '-' && argv[i][j + 1])
+			j++;
 		while (argv[i][j])
 		{
-			if (argv[i][j] < 0 || argv[i][j] > 9)
+			if (argv[i][j] < '0' || argv[i][j] > '9')
 				return (EXIT_FAILURE);
 			j++;
 		}
@@ -75,11 +79,22 @@ int	main(int argc, char **argv)
 	stack_a = NULL;
 	stack_b = NULL;
 	if (argc < 2 || check_arg(argv))
+	{
 		ft_printf("Error\n");
+		return (0);
+	}
 	else
 		stack_a = set_stack(argv, stack_a);
-	check_twins(stack_a);
+	ft_printf("43");
+	if (check_twins(stack_a))
+	{
+		ft_printf("Error\n");
+		free_list(&stack_a);
+		return (0);
+	}
+	ft_printf("51");
 	check_order(stack_a);
+	ft_printf("32");
 	sort_time(&stack_a, &stack_b);
 	free_list(&stack_a);
 	return (0);
