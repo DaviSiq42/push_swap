@@ -15,7 +15,8 @@ int	check_min_max(t_nbrs nbr_a, t_list *stack_b)
 {
 	t_nbrs target;
 
-	target.rotations = find_index(stack_b, find_max(stack_b));
+	target.content = find_max(stack_b);
+	target.rotations = find_index(stack_b, target.content);
 	check_median(stack_b, &target);
 	return(def_moves(&nbr_a, &target));
 }
@@ -69,11 +70,39 @@ t_nbrs	check_cost(t_list *stack_a, t_list *stack_b)
 	return (chosen_one);
 }
 
+t_nbrs	find_target(long chosen_one, t_list *stack_b)
+{
+	t_nbrs	target;
+	t_list	*temp;
+
+	temp = stack_b;
+	if (chosen_one > find_max(stack_b) || chosen_one < find_min(stack_b))
+	{
+		target.content = find_max(stack_b);
+		target.rotations = find_index(stack_b, target.content);
+		check_median(stack_b, &target);
+		return (target);
+	}
+	target.content = find_min(stack_b);
+	while (temp)
+	{
+		if (chosen_one > temp->content)
+		{
+			if (target.content < temp->content)
+				target.content = temp->content;
+		}
+		temp = temp->next;
+	}
+	target.rotations = find_index(stack_b, target.content);
+	check_median(stack_b, &target);
+	return (target);
+}
+
 void	sort_it_all(t_list **stack_a, t_list **stack_b)
 {
 	t_utils	values;
 	t_nbrs	chosen_one;
-//	t_nbrs	target;
+	t_nbrs	target;
 
 	if (ft_lstsize(*stack_a) && check_order(*stack_a))
 		ft_push(stack_a, stack_b, 'b');
@@ -83,6 +112,8 @@ void	sort_it_all(t_list **stack_a, t_list **stack_b)
 	while (values.stack_size > 3)
 	{
 		chosen_one = check_cost(*stack_a, *stack_b);
-		ft_printf ("%d\n", chosen_one.content);
+		target = find_target(chosen_one.content, *stack_b);
+		finally_sorting(chosen_one, target, stack_a, stack_b);
+		values.stack_size = ft_lstsize(*stack_a);
 	}
 }

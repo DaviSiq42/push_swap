@@ -35,3 +35,7 @@ int	def_moves(t_nbrs *a, t_nbrs *b)
 		moves = a->rotations;
 	return (++moves);
 }
+
+void	finally_sorting(t_nbrs chosen_one, t_nbrs target, t_list **stack_a, t_list **stack_b)
+{
+
