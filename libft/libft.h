@@ -21,6 +21,8 @@
 # include <stdio.h>
 # include <fcntl.h>
 # include <stdarg.h>
+# include <stdbool.h>
+# include <limits.h>
 
 typedef struct s_list
 {

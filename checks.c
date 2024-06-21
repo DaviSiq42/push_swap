@@ -33,10 +33,32 @@ int	check_twins(t_list *stack_a)
 		while (temp)
 		{
 			if (temp->content == stack_a->content)
-				return (EXIT_FAILURE);
+			{
+				ft_printf("Error\n");
+				free_list(&stack_a);
+				exit(EXIT_FAILURE);
+			}
 			temp = temp->next;
 		}
 		stack_a = stack_a->next;
+	}
+	return (EXIT_SUCCESS);
+}
+
+int	check_int_limits(t_list *stack_a)
+{
+	t_list	*temp;
+
+	temp = stack_a;
+	while (temp)
+	{
+		if (temp->content > INT_MAX || temp->content < INT_MIN)
+		{
+			ft_printf("Error\n");
+			free_list(&stack_a);
+			exit(EXIT_FAILURE);
+		}
+		temp = temp->next;
 	}
 	return (EXIT_SUCCESS);
 }

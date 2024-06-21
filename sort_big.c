@@ -18,6 +18,8 @@ int	check_min_max(t_nbrs nbr_a, t_list *stack_b)
 	target.content = find_max(stack_b);
 	target.rotations = find_index(stack_b, target.content);
 	check_median(stack_b, &target);
+	if (target.median == true)
+		target.rotations = ft_lstsize(stack_b) - target.rotations;
 	return(def_moves(&nbr_a, &target));
 }
 
@@ -39,6 +41,8 @@ int	check_close(t_nbrs nbr_a, t_list *stack_b)
 	}
 	nbr_b.rotations = find_index(stack_b, nbr_b.content);
 	check_median(stack_b, &nbr_b);
+	if (nbr_b.median == true)
+		nbr_b.rotations = ft_lstsize(stack_b) - nbr_b.rotations;
 	return (def_moves(&nbr_a, &nbr_b));
 }
 
@@ -61,9 +65,11 @@ t_nbrs	check_cost(t_list *stack_a, t_list *stack_b)
 		if (cheapest > moves || chosen_one.rotations == 0)
 		{
 			cheapest = moves;
-			chosen_one.rotations = find_index(stack_a, temp_a->content);
-			check_median(stack_a, &chosen_one);
 			chosen_one.content = temp_a->content;
+			chosen_one.rotations = find_index(stack_a, temp_a->content);	
+			check_median(stack_a, &chosen_one);
+			if (chosen_one.median == true)
+				chosen_one.rotations = ft_lstsize(stack_a) - chosen_one.rotations;
 		}
 		temp_a = temp_a->next;
 	}
@@ -81,6 +87,8 @@ t_nbrs	find_target(long chosen_one, t_list *stack_b)
 		target.content = find_max(stack_b);
 		target.rotations = find_index(stack_b, target.content);
 		check_median(stack_b, &target);
+		if (target.median == true)
+			target.rotations = ft_lstsize(stack_b) - target.rotations;
 		return (target);
 	}
 	target.content = find_min(stack_b);
@@ -95,6 +103,8 @@ t_nbrs	find_target(long chosen_one, t_list *stack_b)
 	}
 	target.rotations = find_index(stack_b, target.content);
 	check_median(stack_b, &target);
+	if (target.median == true)
+		target.rotations = ft_lstsize(stack_b) - target.rotations;
 	return (target);
 }
 
@@ -116,4 +126,8 @@ void	sort_it_all(t_list **stack_a, t_list **stack_b)
 		finally_sorting(chosen_one, target, stack_a, stack_b);
 		values.stack_size = ft_lstsize(*stack_a);
 	}
+	sort_three(stack_a);
+	push_to_a(stack_a, stack_b);
+	if (check_order(*stack_a))
+		finish_sort(stack_a);
 }

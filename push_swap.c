@@ -39,28 +39,35 @@ int	check_arg(char **argv)
 	j = 0;
 	while (argv[i])
 	{
+		j = 0;
 		if (argv[i][j] == '-' && argv[i][j + 1])
 			j++;
 		while (argv[i][j])
 		{
-			if (argv[i][j] < '0' || argv[i][j] > '9')
-				return (EXIT_FAILURE);
-			j++;
+			if (argv[i][j] >= '0' && argv[i][j] <= '9')
+				j++;
+			else
+			{
+				ft_printf("Error\n");
+				exit(EXIT_FAILURE);
+			}
 		}
 		i++;
 	}
 	return (EXIT_SUCCESS);
 }
 
-t_list	*set_stack(char **argv, t_list *stack_a)
+t_list	*set_stack(char **argv)
 {
+	t_list	*stack_a;
 	t_list	*head;
 	int	i;
 
-	i = 2;
+	i = 1;
 	stack_a = NULL;
 	head = NULL;
-	stack_a = ft_lstnew(ft_atoi(argv[i - 1]));
+	stack_a = ft_lstnew(ft_atoi(argv[i]));
+	i++;
 	head = stack_a;
 	while (argv[i])
 	{
@@ -78,23 +85,19 @@ int	main(int argc, char **argv)
 
 	stack_a = NULL;
 	stack_b = NULL;
-	if (argc < 2 || check_arg(argv))
+	if (argc < 2 || argv[1][0] == '\0')
 	{
 		ft_printf("Error\n");
 		return (0);
 	}
 	else
-		stack_a = set_stack(argv, stack_a);
-	ft_printf("43");
-	if (check_twins(stack_a))
 	{
-		ft_printf("Error\n");
-		free_list(&stack_a);
-		return (0);
+		check_arg(argv);
+		stack_a = set_stack(argv);
 	}
-	ft_printf("51");
+	check_twins(stack_a);
+	check_int_limits(stack_a);
 	check_order(stack_a);
-	ft_printf("32");
 	sort_time(&stack_a, &stack_b);
 	free_list(&stack_a);
 	return (0);

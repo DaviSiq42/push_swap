@@ -55,11 +55,8 @@ int	find_index(t_list *stack, long nbr)
 
 void	check_median(t_list *stack, t_nbrs *nbr)
 {
-	if (nbr->rotations > ft_lstsize(stack) / 2)
-	{
-		nbr->rotations = ft_lstsize(stack) - nbr->rotations;
+	if (find_index(stack, nbr->content) > ft_lstsize(stack) / 2)
 		nbr->median = true;
-	}
 	else
 		nbr->median = false;
 }
