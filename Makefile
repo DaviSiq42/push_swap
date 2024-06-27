@@ -10,7 +10,7 @@
 #                                                                              #
 # **************************************************************************** #
 
-SRC = push_swap.c moves.c sort_small.c utils.c free_all.c other_moves.c sort_mid.c checks.c sort_big.c big_sort_utils.c push_a_utils.c
+SRC = push_swap.c moves.c sort_small.c utils.c free_all.c other_moves.c sort_mid.c checks.c tests.c big_sort_utils.c
 NAME = push_swap
 OBJ = ${SRC:.c=.o}
 CC = cc

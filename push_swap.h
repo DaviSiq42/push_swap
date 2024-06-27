@@ -19,13 +19,10 @@ typedef struct s_nbrs
 {
 	int	content;
 	int	rotations;
+	int	lstsize;
+	int	cost;
 	bool	median;
 }		t_nbrs;
-
-typedef struct s_utils
-{
-	int	stack_size;
-}		t_utils;
 
 void	ft_swap(t_list **stack_a, char c);
 void	ft_swapboth(t_list **stack_a, t_list **stack_b);
@@ -44,12 +41,12 @@ void	sort_three(t_list **stack_a);
 void	sort_four(t_list **stack_a, t_list **stack_b);
 void	sort_five(t_list **stack_a, t_list **stack_b);
 void	sort_it_all(t_list **stack_a, t_list **stack_b);
-t_nbrs	check_cost(t_list *stack_a, t_list *stack_b);
-t_nbrs	find_target(long chosen_one, t_list *stack_b);
-int	check_close(t_nbrs nbr_a, t_list *stack_b);
-int	check_min_max(t_nbrs nbr_a, t_list *stack_b);
+//t_nbrs	check_cost(t_list *stack_a, t_list *stack_b);
+//t_nbrs	find_target(long chosen_one, t_list *stack_b);
+//int	check_close(t_nbrs nbr_a, t_list *stack_b);
+//int	check_min_max(t_nbrs nbr_a, t_list *stack_b);
 int	check_arg(char **argv);
-int	def_moves(t_nbrs *a, t_nbrs *b);
+//int	def_moves(t_nbrs *a, t_nbrs *b);
 void	sorting(t_nbrs *nbr, t_list **stack, char c);
 void	finally_sorting(t_nbrs chosen_one, t_nbrs target, t_list **stack_a, t_list **stack_b);
 void	push_to_a(t_list **stack_a, t_list **stack_b);
@@ -66,5 +63,10 @@ int	check_order(t_list *stack_a);
 void	check_median(t_list *stack, t_nbrs *nbr);
 int	check_twins(t_list *stack_a);
 int	check_int_limits(t_list *stack_a);
+void	find_chosen(t_list *stack_a, t_list *stack_b, t_nbrs *chosen, t_nbrs *target);
+void	if_btw(t_nbrs *chosen, t_list *stack_b, t_nbrs *target);
+void	if_limit(t_nbrs *chosen, t_list *stack_b, t_nbrs *target);
+void	def_cost(t_nbrs *chosen, t_nbrs *target);
+void	sending_back(t_nbrs chosen_one, t_nbrs target, t_list **stack_b, t_list **stack_a);
 
 #endif
