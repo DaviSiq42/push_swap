@@ -77,6 +77,8 @@ void	sort_it_all(t_list **stack_a, t_list **stack_b)
 	t_nbrs	chosen;
 	t_nbrs	target;
 
+	ft_push(stack_a, stack_b, 'b');
+	ft_push(stack_a, stack_b, 'b');
 	chosen.lstsize = ft_lstsize(*stack_a);
 	target.lstsize = ft_lstsize(*stack_b);
 	chosen.cost = 0;

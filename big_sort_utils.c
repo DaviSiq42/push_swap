@@ -60,7 +60,7 @@ void	finally_sorting(t_nbrs chosen_one, t_nbrs target, t_list **stack_a, t_list 
 	min_b = find_min(*stack_b);
 	if (chosen_one.median == target.median)
 	{
-		while (chosen_one.rotations != 0 || target.rotations != 0)
+		while (chosen_one.rotations != 0 && target.rotations != 0)
 		{
 			if (chosen_one.median == true)
 				ft_reverse_rotateboth(stack_a, stack_b);
@@ -84,7 +84,7 @@ void	sending_back(t_nbrs chosen_one, t_nbrs target, t_list **stack_b, t_list **s
 	min_b = find_min(*stack_a);
 	if (chosen_one.median == target.median)
 	{
-		while (chosen_one.rotations != 0 || target.rotations != 0)
+		while (chosen_one.rotations != 0 && target.rotations != 0)
 		{
 			if (chosen_one.median == true)
 				ft_reverse_rotateboth(stack_a, stack_b);
