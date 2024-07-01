@@ -16,19 +16,23 @@ void	def_cost(t_nbrs *chosen, t_nbrs *target)
 {
 	int	median_a;
 	int	median_b;
+	int	rot_a;
+	int	rot_b;
 
 	median_a = chosen->lstsize - chosen->rotations;
 	median_b = target->lstsize - target->rotations;
+	rot_a = chosen->rotations;
+	rot_b = target->rotations;
 	chosen->cost = chosen->rotations + target->rotations;
-	if (median_a + target->rotations < chosen->cost)
+	if (median_a + rot_b < chosen->cost)
 	{
 		chosen->rotations = median_a;
 		chosen->median = true;
-		chosen->cost = median_a + target->rotations;
+		chosen->cost = median_a + rot_b;
 	}
-	else if (chosen->rotations + median_b < chosen->cost)
+	else if (rot_a + median_b < chosen->cost)
 	{
-		chosen->cost = chosen->rotations + median_b;
+		chosen->cost = rot_a + median_b;
 		target->rotations = median_b;
 		target->median = true;
 	}
@@ -46,7 +50,7 @@ void	def_cost(t_nbrs *chosen, t_nbrs *target)
 
 void	sorting(t_nbrs *nbr, t_list **stack, char c)
 {
-	while (nbr->rotations--)
+	while (nbr->content != (*stack)->content)
 	{
 		if (nbr->median == true)
 			ft_reverse_rotate(stack, c);
@@ -62,14 +66,12 @@ void	finally_sorting(t_nbrs chosen_one, t_nbrs target, t_list **stack_a, t_list 
 //	min_b = find_min(*stack_b);
 	if (chosen_one.median == target.median)
 	{
-		while (chosen_one.rotations != 0 && target.rotations != 0)
+		while (chosen_one.content != (*stack_a)->content && target.rotations != (*stack_b)->content)
 		{
 			if (chosen_one.median == true)
 				ft_reverse_rotateboth(stack_a, stack_b);
 			else
 				ft_rotateboth(stack_a, stack_b);
-			chosen_one.rotations--;
-			target.rotations--;
 		}
 	}
 	sorting(&chosen_one, stack_a, 'a');
@@ -86,14 +88,12 @@ void	sending_back(t_nbrs chosen_one, t_nbrs target, t_list **stack_b, t_list **s
 //	max_a = find_max(*stack_a);
 	if (chosen_one.median == target.median)
 	{
-		while (chosen_one.rotations != 0 && target.rotations != 0)
+		while (chosen_one.content != (*stack_b)->content && target.content != (*stack_a)->content)
 		{
 			if (chosen_one.median == true)
 				ft_reverse_rotateboth(stack_a, stack_b);
 			else
 				ft_rotateboth(stack_a, stack_b);
-			chosen_one.rotations--;
-			target.rotations--;
 		}
 	}
 	sorting(&chosen_one, stack_b, 'b');
