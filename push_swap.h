@@ -63,10 +63,13 @@ int	check_order(t_list *stack_a);
 void	check_median(t_list *stack, t_nbrs *nbr);
 int	check_twins(t_list *stack_a);
 int	check_int_limits(t_list *stack_a);
-void	find_chosen(t_list *stack_a, t_list *stack_b, t_nbrs *chosen, t_nbrs *target);
+void	clean_struct(t_nbrs *stru);
+void	find_chosen_b(t_list *stack_a, t_list *stack_b, t_nbrs *chosen, t_nbrs *target);
 void	if_btw(t_nbrs *chosen, t_list *stack_b, t_nbrs *target);
-void	if_limit(t_nbrs *chosen, t_list *stack_b, t_nbrs *target);
+void	if_btw_a(t_nbrs *chosen, t_list *stack_a, t_nbrs *target);
+void	if_limit(t_nbrs *chosen, t_list *stack_b, t_nbrs *target, int flag);
 void	def_cost(t_nbrs *chosen, t_nbrs *target);
+void	find_chosen_a(t_list *stack_a, t_list *stack_b, t_nbrs *chosen, t_nbrs *target);
 void	sending_back(t_nbrs chosen_one, t_nbrs target, t_list **stack_b, t_list **stack_a);
 
 #endif

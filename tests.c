@@ -12,9 +12,12 @@
 
 #include "push_swap.h"
 
-void	if_limit(t_nbrs *chosen, t_list *stack_b, t_nbrs *target)
+void	if_limit(t_nbrs *chosen, t_list *stack_b, t_nbrs *target, int flag)
 {
-	target->content = find_max(stack_b);
+	if (flag)
+		target->content = find_max(stack_b);
+	else
+		target->content = find_min(stack_b);
 	target->lstsize = ft_lstsize(stack_b);
 	target->rotations = find_index(stack_b, target->content);
 	target->median = false;
@@ -35,10 +38,11 @@ void	if_btw(t_nbrs *chosen, t_list *stack_b, t_nbrs *target)
 		head_b = head_b->next;
 	}
 	target->rotations = find_index(stack_b, target->content);
+	target->median = false;
 	def_cost(chosen, target);
 }
 
-void	find_chosen(t_list *stack_a, t_list *stack_b, t_nbrs *chosen, t_nbrs *target)
+void	find_chosen_a(t_list *stack_a, t_list *stack_b, t_nbrs *chosen, t_nbrs *target)
 {
 	t_list	*head_a;
 	int	lower_cost;
@@ -52,10 +56,10 @@ void	find_chosen(t_list *stack_a, t_list *stack_b, t_nbrs *chosen, t_nbrs *targe
 		if (head_a->content < find_min(stack_b))
 		{
 			chosen->cost++;
-			if_limit(chosen, stack_b, target);
+			if_limit(chosen, stack_b, target, 1);
 		}
 		else if (head_a->content > find_max(stack_b))
-			if_limit(chosen, stack_b, target);
+			if_limit(chosen, stack_b, target, 1);
 		else if (head_a->content > find_min(stack_b) && head_a->content < find_max(stack_b))
 			if_btw(chosen, stack_b, target);
 		if (lower_cost > chosen->cost)
@@ -67,7 +71,7 @@ void	find_chosen(t_list *stack_a, t_list *stack_b, t_nbrs *chosen, t_nbrs *targe
 	}
 	chosen->rotations = find_index(stack_a, chosen->content);
 	if (chosen->content < find_min(stack_b) || chosen->content > find_max(stack_b))
-		if_limit(chosen, stack_b, target);
+		if_limit(chosen, stack_b, target, 1);
 	else if (chosen->content > find_min(stack_b) && chosen->content < find_max(stack_b))
 		if_btw(chosen, stack_b, target);
 }
@@ -85,16 +89,20 @@ void	sort_it_all(t_list **stack_a, t_list **stack_b)
 	chosen.median = false;
 	while (chosen.lstsize > 3)
 	{
-		find_chosen(*stack_a, *stack_b, &chosen, &target);
+		find_chosen_a(*stack_a, *stack_b, &chosen, &target);
 		finally_sorting(chosen, target, stack_a, stack_b);
 		chosen.lstsize = ft_lstsize(*stack_a);
 	}
 	sort_three(stack_a);
-	target.lstsize = ft_lstsize(*stack_b);
-	while (target.lstsize)
+	clean_struct(&chosen);
+	clean_struct(&target);
+	chosen.lstsize = ft_lstsize(*stack_b);
+	target.lstsize = ft_lstsize(*stack_a);
+	while (chosen.lstsize)
 	{
-		find_chosen(*stack_b, *stack_a, &target, &chosen);
+		find_chosen_b(*stack_a, *stack_b, &chosen, &target);
 		sending_back(chosen, target, stack_b, stack_a);
-		target.lstsize = ft_lstsize(*stack_b);
+		chosen.lstsize = ft_lstsize(*stack_b);
 	}
+	finish_sort(stack_a);
 }

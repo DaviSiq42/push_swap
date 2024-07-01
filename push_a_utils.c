@@ -12,7 +12,7 @@
 
 #include "push_swap.h"
 
-void	target_edges(t_list **stack_a, t_list **stack_b)
+/*void	target_edges(t_list **stack_a, t_list **stack_b)
 {
 	int	position;
 
@@ -53,7 +53,7 @@ void	target_btw(t_list **stack_a, t_list **stack_b)
 			ft_rotate(stack_a, 'a');
 	}
 	ft_push(stack_a, stack_b, 'a');
-}
+}*/
 
 void	finish_sort(t_list **stack_a)
 {
@@ -67,4 +67,22 @@ void	finish_sort(t_list **stack_a)
 		else
 			ft_rotate(stack_a, 'a');
 	}
+}
+
+void	if_btw_a(t_nbrs *chosen, t_list *stack_a, t_nbrs *target)
+{
+	t_list	*head_a;
+
+	target->content = find_max(stack_a);
+	target->lstsize = ft_lstsize(stack_a);
+	head_a = stack_a;
+	while (head_a)
+	{
+		if (target->content > head_a->content && chosen->content < head_a->content)
+			target->content = head_a->content;
+		head_a = head_a->next;
+	}
+	target->rotations = find_index(stack_a, target->content);
+	target->median = false;
+	def_cost(chosen, target);
 }

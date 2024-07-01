@@ -60,3 +60,12 @@ void	check_median(t_list *stack, t_nbrs *nbr)
 	else
 		nbr->median = false;
 }
+
+void	clean_struct(t_nbrs *stru)
+{
+	stru->content = '\0';
+	stru->median = false;
+	stru->rotations = '\0';
+	stru->lstsize = '\0';
+	stru->cost = 0;
+}
