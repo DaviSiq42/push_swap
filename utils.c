@@ -43,11 +43,13 @@ long	find_max(t_list *stack)
 int	find_index(t_list *stack, long nbr)
 {
 	int	index;
+	t_list	*temp;
 
 	index = 0;
-	while (stack->content != nbr)
+	temp = stack;
+	while (temp->content != nbr)
 	{
-		stack = stack->next;
+		temp = temp->next;
 		index++;
 	}
 	return (index);

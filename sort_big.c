@@ -1,133 +1,113 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sort_big.c                                         :+:      :+:    :+:   */
+/*   tests.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: davioliv <davioliv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/14 15:11:13 by davioliv          #+#    #+#             */
-/*   Updated: 2024/06/14 15:11:15 by davioliv         ###   ########.fr       */
+/*   Created: 2024/06/24 16:57:16 by davioliv          #+#    #+#             */
+/*   Updated: 2024/06/24 16:57:19 by davioliv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "push_swap.h"
 
-int	check_min_max(t_nbrs nbr_a, t_list *stack_b)
+void	if_limit(t_nbrs *chosen, t_list *stack_b, t_nbrs *target, int flag)
 {
-	t_nbrs target;
-
-	target.content = find_max(stack_b);
-	target.rotations = find_index(stack_b, target.content);
-	check_median(stack_b, &target);
-	if (target.median == true)
-		target.rotations = ft_lstsize(stack_b) - target.rotations;
-	return(def_moves(&nbr_a, &target));
+	if (flag)
+		target->content = find_max(stack_b);
+	else
+		target->content = find_min(stack_b);
+	target->lstsize = ft_lstsize(stack_b);
+	target->rotations = find_index(stack_b, target->content);
+	target->median = false;
+	def_cost(chosen, target);
 }
 
-int	check_close(t_nbrs nbr_a, t_list *stack_b)
+void	if_btw(t_nbrs *chosen, t_list *stack_b, t_nbrs *target)
 {
-	t_list	*temp_b;
-	t_nbrs	nbr_b;
+	t_list	*head_b;
 
-	temp_b = stack_b;
-	nbr_b.content = find_min(stack_b);
-	while (temp_b)
+	target->content = find_min(stack_b);
+	target->lstsize = ft_lstsize(stack_b);
+	head_b = stack_b;
+	while (head_b)
 	{
-		if (nbr_a.content > temp_b->content)
-		{
-			if (nbr_b.content < temp_b->content)
-				nbr_b.content = temp_b->content;
-		}
-		temp_b = temp_b->next;
+		if (target->content < head_b->content && chosen->content > head_b->content)
+			target->content = head_b->content;
+		head_b = head_b->next;
 	}
-	nbr_b.rotations = find_index(stack_b, nbr_b.content);
-	check_median(stack_b, &nbr_b);
-	if (nbr_b.median == true)
-		nbr_b.rotations = ft_lstsize(stack_b) - nbr_b.rotations;
-	return (def_moves(&nbr_a, &nbr_b));
+	target->rotations = find_index(stack_b, target->content);
+	target->median = false;
+	def_cost(chosen, target);
 }
 
-t_nbrs	check_cost(t_list *stack_a, t_list *stack_b)
+void	find_chosen_a(t_list *stack_a, t_list *stack_b, t_nbrs *chosen, t_nbrs *target)
 {
-	t_list	*temp_a;
-	t_nbrs	chosen_one;
-	int	moves;
-	int	cheapest;
+	t_list	*head_a;
+	int	lower_cost;
+	int	rot;
 
-	temp_a = stack_a;
-	cheapest = 0;
-	chosen_one.rotations = 0;
-	while (temp_a)
+	head_a = stack_a;
+	lower_cost = INT_MAX;
+	chosen->content = head_a->content;
+	chosen->lstsize = ft_lstsize(stack_a);
+	chosen->rotations = 0;
+	rot = 0;
+	while (head_a)
 	{
-		if (temp_a->content > find_max(stack_b) || temp_a->content < find_min(stack_b))
-			moves = check_min_max(chosen_one, stack_b);
-		else
-			moves = check_close(chosen_one, stack_b);
-		if (cheapest > moves || chosen_one.rotations == 0)
+		if (head_a->content < find_min(stack_b))
 		{
-			cheapest = moves;
-			chosen_one.content = temp_a->content;
-			chosen_one.rotations = find_index(stack_a, temp_a->content);	
-			check_median(stack_a, &chosen_one);
-			if (chosen_one.median == true)
-				chosen_one.rotations = ft_lstsize(stack_a) - chosen_one.rotations;
+//			chosen->cost++;
+			if_limit(chosen, stack_b, target, 1);
 		}
-		temp_a = temp_a->next;
-	}
-	return (chosen_one);
-}
-
-t_nbrs	find_target(long chosen_one, t_list *stack_b)
-{
-	t_nbrs	target;
-	t_list	*temp;
-
-	temp = stack_b;
-	if (chosen_one > find_max(stack_b) || chosen_one < find_min(stack_b))
-	{
-		target.content = find_max(stack_b);
-		target.rotations = find_index(stack_b, target.content);
-		check_median(stack_b, &target);
-		if (target.median == true)
-			target.rotations = ft_lstsize(stack_b) - target.rotations;
-		return (target);
-	}
-	target.content = find_min(stack_b);
-	while (temp)
-	{
-		if (chosen_one > temp->content)
+		else if (head_a->content > find_max(stack_b))
+			if_limit(chosen, stack_b, target, 1);
+		else if (head_a->content > find_min(stack_b) && head_a->content < find_max(stack_b))
+			if_btw(chosen, stack_b, target);
+//		ft_printf("%d\n", lower_cost);
+		if (lower_cost > chosen->cost || rot == 0)
 		{
-			if (target.content < temp->content)
-				target.content = temp->content;
+			chosen->content = head_a->content;
+			chosen->rotations = rot;
+			lower_cost = chosen->cost;
 		}
-		temp = temp->next;
+		head_a = head_a->next;
+		rot++;
 	}
-	target.rotations = find_index(stack_b, target.content);
-	check_median(stack_b, &target);
-	if (target.median == true)
-		target.rotations = ft_lstsize(stack_b) - target.rotations;
-	return (target);
+	if (chosen->content < find_min(stack_b) || chosen->content > find_max(stack_b))
+		if_limit(chosen, stack_b, target, 1);
+	else if (chosen->content > find_min(stack_b) && chosen->content < find_max(stack_b))
+		if_btw(chosen, stack_b, target);
 }
 
 void	sort_it_all(t_list **stack_a, t_list **stack_b)
 {
-	t_utils	values;
-	t_nbrs	chosen_one;
+	t_nbrs	chosen;
 	t_nbrs	target;
 
-	if (ft_lstsize(*stack_a) && check_order(*stack_a))
-		ft_push(stack_a, stack_b, 'b');
-	if (ft_lstsize(*stack_a) && check_order(*stack_a))
-		ft_push(stack_a, stack_b, 'b');
-	values.stack_size = ft_lstsize(*stack_a);
-	while (values.stack_size > 3)
+	ft_push(stack_a, stack_b, 'b');
+	ft_push(stack_a, stack_b, 'b');
+	chosen.lstsize = ft_lstsize(*stack_a);
+	target.lstsize = ft_lstsize(*stack_b);
+	chosen.cost = 0;
+	chosen.median = false;
+	while (chosen.lstsize > 3)
 	{
-		chosen_one = check_cost(*stack_a, *stack_b);
-		target = find_target(chosen_one.content, *stack_b);
-		finally_sorting(chosen_one, target, stack_a, stack_b);
-		values.stack_size = ft_lstsize(*stack_a);
+		find_chosen_a(*stack_a, *stack_b, &chosen, &target);
+		finally_sorting(chosen, target, stack_a, stack_b);
+		chosen.lstsize = ft_lstsize(*stack_a);
 	}
 	sort_three(stack_a);
-	push_to_a(stack_a, stack_b);
-	if (check_order(*stack_a))
-		finish_sort(stack_a);
+	clean_struct(&chosen);
+	clean_struct(&target);
+	chosen.lstsize = ft_lstsize(*stack_b);
+	target.lstsize = ft_lstsize(*stack_a);
+	while (chosen.lstsize)
+	{
+		find_chosen_b(*stack_a, *stack_b, &chosen, &target);
+		sending_back(chosen, target, stack_b, stack_a);
+		chosen.lstsize = ft_lstsize(*stack_b);
+	}
+	finish_sort(stack_a);
 }
