@@ -17,11 +17,10 @@
 
 typedef struct s_nbrs
 {
-	int	content;
+	long	content;
 	int	rotations;
 	int	lstsize;
 	int	cost;
-	bool	median;
 }		t_nbrs;
 
 void	ft_swap(t_list **stack_a, char c);
@@ -56,16 +55,14 @@ void	ft_min_in_mid(t_list **stack_a);
 void	ft_min_in_last(t_list **stack_a);
 void	free_list(t_list **stack_a);
 int	check_order(t_list *stack_a);
-void	check_median(t_list *stack, t_nbrs *nbr);
 int	check_twins(t_list *stack_a);
 int	check_int_limits(t_list *stack_a);
-void	clean_struct(t_nbrs *stru);
-void	find_chosen_b(t_list *stack_a, t_list *stack_b, t_nbrs *chosen, t_nbrs *target);
-void	if_btw(t_nbrs *chosen, t_list *stack_b, t_nbrs *target);
-void	if_btw_a(t_nbrs *chosen, t_list *stack_a, t_nbrs *target);
-void	if_limit(t_nbrs *chosen, t_list *stack_b, t_nbrs *target, int flag);
-void	def_cost(t_nbrs *chosen, t_nbrs *target);
-void	find_chosen_a(t_list *stack_a, t_list *stack_b, t_nbrs *chosen, t_nbrs *target);
-void	sending_back(t_nbrs chosen_one, t_nbrs target, t_list **stack_b, t_list **stack_a);
+int	if_btw(t_nbrs chosen, int nbr_a, t_list *stack_b);
+int	if_limit(t_nbrs chosen, t_list *stack_b);
+int	def_cost(t_nbrs chosen, t_nbrs target);
+int	choose(int a, int b);
+t_nbrs	find_chosen_a(t_list *stack_a, t_list *stack_b, t_nbrs a);
+t_nbrs	set_target(t_list *stack_b, int chosen);
+void	sending_back(t_list **stack_b, t_list **stack_a);
 
 #endif

@@ -12,39 +12,11 @@
 
 #include "push_swap.h"
 
-void	def_cost(t_nbrs *chosen, t_nbrs *target)
-{
-	int	median_a;
-	int	median_b;
-
-	median_a = chosen->lstsize - chosen->rotations;
-	median_b = target->lstsize - target->rotations;
-	chosen->cost = chosen->rotations + target->rotations;
-	if (median_a + target->rotations < chosen->cost)
-	{
-		chosen->median = true;
-		chosen->cost = median_a + target->rotations;
-	}
-	else if (chosen->rotations + median_b < chosen->cost)
-	{
-		chosen->cost = chosen->rotations + median_b;
-		target->median = true;
-	}
-	else if (median_a + median_b < chosen->cost)
-	{
-		chosen->median = true;
-		chosen->cost = median_a + median_b;
-		target->median = true;
-	}
-	else
-		chosen->median = false;
-}
-
 void	sorting(t_nbrs nbr, t_list **stack, char c)
 {
 	while (nbr.content != (*stack)->content)
 	{
-		if (nbr.median == true)
+		if (nbr.rotations > nbr.lstsize / 2)
 			ft_reverse_rotate(stack, c);
 		else
 			ft_rotate(stack, c);
@@ -53,25 +25,45 @@ void	sorting(t_nbrs nbr, t_list **stack, char c)
 
 void	finally_sorting(t_nbrs chosen_one, t_nbrs target, t_list **stack_a, t_list **stack_b)
 {
-	int	min_b;
-
-	min_b = find_min(*stack_b);
-	while (chosen_one.content != (*stack_a)->content && target.rotations != (*stack_b)->content)
+	while (chosen_one.content != (*stack_a)->content && target.content != (*stack_b)->content)
 	{
-		if (chosen_one.median == true && target.median == true)
+		if (chosen_one.rotations > chosen_one.lstsize / 2 && target.rotations > target.lstsize / 2)
 			ft_reverse_rotateboth(stack_a, stack_b);
-		else if (chosen_one.median == false && target.median == false)
-			ft_rotateboth(stack_a, stack_b);
-		else if (chosen_one.median == false && target.median == true)
+		else if (chosen_one.rotations < chosen_one.lstsize / 2 && target.rotations > target.lstsize / 2)
 			ft_rotate(stack_a, 'a');
-		else if (chosen_one.median == true && target.median == false)
+		else if (chosen_one.rotations > chosen_one.lstsize / 2 && target.rotations < target.lstsize / 2)
 			ft_rotate(stack_b, 'b');
+		else
+			ft_rotateboth(stack_a, stack_b);
 	}
-	if (chosen_one.content != (*stack_a)->content)
+	if (chosen_one.content != (*stack_a)->content && target.content == (*stack_b)->content)
 		sorting(chosen_one, stack_a, 'a');
-	else if (target.content != (*stack_b)->content)
+	else if (target.content != (*stack_b)->content && chosen_one.content == (*stack_a)->content)
 		sorting(target, stack_b, 'b');
 	ft_push(stack_a, stack_b, 'b');
-	if (chosen_one.content < min_b)
-		ft_rotate(stack_b, 'b');
+}
+
+t_nbrs	set_target(t_list *stack_b, int chosen)
+{
+	t_nbrs	target;
+	t_list	*head_b;
+
+	head_b = stack_b;
+	if (chosen < find_min(stack_b) || chosen > find_max(stack_b))
+	{
+		target.content = find_max(stack_b);
+		target.rotations = find_index(stack_b, target.content);
+		target.lstsize = ft_lstsize(stack_b);
+		return (target);
+	}
+	target.content = find_min(stack_b);
+	while (head_b)
+	{
+		if (target.content < head_b->content && chosen > head_b->content)
+			target.content = head_b->content;
+		head_b = head_b->next;
+	}
+	target.lstsize = ft_lstsize(stack_b);
+	target.rotations = find_index(stack_b, target.content);
+	return (target);
 }

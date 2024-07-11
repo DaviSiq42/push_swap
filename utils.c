@@ -55,7 +55,7 @@ int	find_index(t_list *stack, long nbr)
 	return (index);
 }
 
-void	check_median(t_list *stack, t_nbrs *nbr)
+/*void	check_median(t_list *stack, t_nbrs *nbr)
 {
 	if (find_index(stack, nbr->content) > ft_lstsize(stack) / 2)
 		nbr->median = true;
@@ -63,11 +63,11 @@ void	check_median(t_list *stack, t_nbrs *nbr)
 		nbr->median = false;
 }
 
-void	clean_struct(t_nbrs *stru)
+void	clean_struct(t_nbrs *stru, t_list *stack)
 {
 	stru->content = '\0';
 	stru->median = false;
 	stru->rotations = '\0';
-	stru->lstsize = '\0';
+	stru->lstsize = ft_lstsize(stack);
 	stru->cost = 0;
-}
+}*/
