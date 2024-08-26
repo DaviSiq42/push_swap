@@ -16,7 +16,6 @@ void	finish_sort(t_list **stack_a)
 {
 	int	i;
 
-
 	i = find_index(*stack_a, find_min(*stack_a));
 	while (check_order(*stack_a))
 	{
@@ -45,8 +44,8 @@ static void	sort_limit(t_list **stack_a, t_list **stack_b, int size)
 static void	sort_btw(t_list **stack_a, t_list **stack_b, int size)
 {
 	t_list	*head_a;
-	int	position;
-	int	target;
+	int		position;
+	int		target;
 
 	target = find_max(*stack_a);
 	head_a = *stack_a;
@@ -74,9 +73,11 @@ void	sending_back(t_list **stack_b, t_list **stack_a)
 	while (*stack_b)
 	{
 		size = ft_lstsize(*stack_a);
-		if ((*stack_b)->content > find_max(*stack_a) || (*stack_b)->content < find_min(*stack_a))
+		if ((*stack_b)->content > find_max(*stack_a)
+			|| (*stack_b)->content < find_min(*stack_a))
 			sort_limit(stack_a, stack_b, size);
-		else if ((*stack_b)->content < find_max(*stack_a) && (*stack_b)->content > find_min(*stack_a))
+		else if ((*stack_b)->content < find_max(*stack_a)
+			&& (*stack_b)->content > find_min(*stack_a))
 			sort_btw(stack_a, stack_b, size);
 	}
 }

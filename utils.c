@@ -42,7 +42,7 @@ long	find_max(t_list *stack)
 
 int	find_index(t_list *stack, long nbr)
 {
-	int	index;
+	int		index;
 	t_list	*temp;
 
 	index = 0;
