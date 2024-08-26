@@ -44,16 +44,18 @@ t_nbrs	find_chosen_a(t_list *stack_a, t_list *stack_b, t_nbrs a_test)
 {
 	t_list	*head_a;
 	t_nbrs	chosen;
-	int	lower_cost;
+	int		lower_cost;
 
 	head_a = stack_a;
 	lower_cost = 0;
 	chosen.lstsize = ft_lstsize(stack_a);
 	while (head_a != NULL)
 	{
-		if (head_a->content < find_min(stack_b) || head_a->content > find_max(stack_b))
+		if (head_a->content < find_min(stack_b)
+			|| head_a->content > find_max(stack_b))
 			chosen.cost = if_limit(a_test, stack_b);
-		else if (head_a->content > find_min(stack_b) && head_a->content < find_max(stack_b))
+		else if (head_a->content > find_min(stack_b)
+			&& head_a->content < find_max(stack_b))
 			chosen.cost = if_btw(a_test, head_a->content, stack_b);
 		if (lower_cost > chosen.cost || a_test.rotations == 0)
 		{

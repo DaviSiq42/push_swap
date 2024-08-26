@@ -61,7 +61,7 @@ t_list	*set_stack(char **argv)
 {
 	t_list	*stack_a;
 	t_list	*head;
-	int	i;
+	int		i;
 
 	i = 1;
 	stack_a = NULL;
@@ -102,4 +102,3 @@ int	main(int argc, char **argv)
 	free_list(&stack_a);
 	return (0);
 }
-

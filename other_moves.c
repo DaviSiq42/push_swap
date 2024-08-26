@@ -16,7 +16,7 @@ void	ft_reverse_rotate(t_list **stack_a, char c)
 {
 	t_list	*temp;
 	t_list	*tail;
-	
+
 	temp = *stack_a;
 	tail = ft_lstlast(*stack_a);
 	while (temp->next != tail)

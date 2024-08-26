@@ -28,11 +28,14 @@ int	def_moves(t_nbrs chosen, t_nbrs target)
 	median_a = chosen.lstsize - chosen.rotations;
 	median_b = target.lstsize - target.rotations;
 	moves = 0;
-	if (chosen.rotations >= chosen.lstsize / 2 && target.rotations >= target.lstsize / 2)
+	if (chosen.rotations >= chosen.lstsize / 2
+		&& target.rotations >= target.lstsize / 2)
 		moves = choose(median_a, median_b);
-	else if (chosen.rotations > chosen.lstsize / 2 && target.rotations < target.lstsize / 2)
+	else if (chosen.rotations > chosen.lstsize / 2
+		&& target.rotations < target.lstsize / 2)
 		moves = median_a + target.rotations;
-	else if (chosen.rotations < chosen.lstsize / 2 && target.rotations > target.lstsize / 2)
+	else if (chosen.rotations < chosen.lstsize / 2
+		&& target.rotations > target.lstsize / 2)
 		moves = median_b + chosen.rotations;
 	else
 		moves = choose(chosen.rotations, target.rotations);

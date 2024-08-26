@@ -23,22 +23,29 @@ void	sorting(t_nbrs nbr, t_list **stack, char c)
 	}
 }
 
-void	finally_sorting(t_nbrs chosen_one, t_nbrs target, t_list **stack_a, t_list **stack_b)
+void	finally_sorting(t_nbrs chosen_one, t_nbrs target,
+			t_list **stack_a, t_list **stack_b)
 {
-	while (chosen_one.content != (*stack_a)->content && target.content != (*stack_b)->content)
+	while (chosen_one.content != (*stack_a)->content
+		&& target.content != (*stack_b)->content)
 	{
-		if (chosen_one.rotations > chosen_one.lstsize / 2 && target.rotations > target.lstsize / 2)
+		if (chosen_one.rotations > chosen_one.lstsize / 2
+			&& target.rotations > target.lstsize / 2)
 			ft_reverse_rotateboth(stack_a, stack_b);
-		else if (chosen_one.rotations < chosen_one.lstsize / 2 && target.rotations > target.lstsize / 2)
+		else if (chosen_one.rotations < chosen_one.lstsize / 2
+			&& target.rotations > target.lstsize / 2)
 			ft_rotate(stack_a, 'a');
-		else if (chosen_one.rotations > chosen_one.lstsize / 2 && target.rotations < target.lstsize / 2)
+		else if (chosen_one.rotations > chosen_one.lstsize / 2
+			&& target.rotations < target.lstsize / 2)
 			ft_rotate(stack_b, 'b');
 		else
 			ft_rotateboth(stack_a, stack_b);
 	}
-	if (chosen_one.content != (*stack_a)->content && target.content == (*stack_b)->content)
+	if (chosen_one.content != (*stack_a)->content
+		&& target.content == (*stack_b)->content)
 		sorting(chosen_one, stack_a, 'a');
-	else if (target.content != (*stack_b)->content && chosen_one.content == (*stack_a)->content)
+	else if (target.content != (*stack_b)->content
+		&& chosen_one.content == (*stack_a)->content)
 		sorting(target, stack_b, 'b');
 	ft_push(stack_a, stack_b, 'b');
 }
